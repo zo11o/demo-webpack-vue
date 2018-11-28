@@ -19,5 +19,15 @@
   "bugs": {
     "url": "https://github.com/zo11o/demo-webpack-vue/issues"
   },
-  "homepage": "https://github.com/zo11o/demo-webpack-vue#readme"
+  "homepage": "https://github.com/zo11o/demo-webpack-vue#readme",
+  "dependencies": {
+    "lodash": "^4.17.11",
+    "vue": "^2.5.17"
+  },
+  "devDependencies": {
+    "chalk": "^2.4.1",
+    "webpack": "^4.26.1",
+    "webpack-cli": "^3.1.2",
+    "webpack-merge": "^4.1.4"
+  }
 }
