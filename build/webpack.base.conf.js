@@ -6,6 +6,10 @@ var utils = require('./utils')
 const MiniCssExtractPlugin = require("mini-css-extract-plugin")
 const VueLoaderPlugin = require('vue-loader/lib/plugin')
 
+function resolve (dir) {
+    return path.join(__dirname, '..', dir)
+}
+
 module.exports = {
     //指定入口
     entry: './src/main.js',
@@ -16,7 +20,11 @@ module.exports = {
     },
 
     resolve: {
-        extensions: [ ' ' , '.js', '.vue', '.json']  //导入的时候不用写拓展名
+        extensions: [ ' ' , '.js', '.vue', '.json'],  //导入的时候不用写拓展名
+        alias: {
+            'vue$': 'vue/dist/vue.esm.js',
+            '@': resolve('src')
+        }
     },
 
     module: {

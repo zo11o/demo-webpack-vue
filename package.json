@@ -39,7 +39,6 @@
     "browserslist": "^4.3.4",
     "chalk": "^2.4.1",
     "css-loader": "^1.0.1",
-    "extract-text-webpack-plugin": "^3.0.2",
     "file-loader": "^2.0.0",
     "is-accessor-descriptor": "^2.0.0",
     "is-data-descriptor": "^1.0.0",

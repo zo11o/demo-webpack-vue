@@ -1,9 +1,8 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Home from '../page/home.vue'
+import Home from '@/page/home.vue'
 
 Vue.use(Router);
-
 
 const routes = [
     {
@@ -25,5 +24,5 @@ const routes = [
 
 export default new Router({
     routes,
-    // strict: process.env.NODE_ENV !== 'production',
+    strict: process.env.NODE_ENV !== 'production',
 })
