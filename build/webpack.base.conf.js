@@ -1,29 +1,30 @@
 const path = require('path')
 const config = require('../config')
-const webpack = require('webpack')
+// const webpack = require('webpack')
 var utils = require('./utils')
-// const vueLoaderConfig = require('./vue-loader.conf')
 const MiniCssExtractPlugin = require("mini-css-extract-plugin")
 const VueLoaderPlugin = require('vue-loader/lib/plugin')
+const devMode = process.env.npm_lifecycle_event !== 'build';
+// console.log(devMode);
 
-function resolve (dir) {
-    return path.join(__dirname, '..', dir)  //__dirname 当前目录
+function resolve(dir) {
+    return path.join(__dirname, '..', dir) //__dirname 当前目录
 }
 
 module.exports = {
     //指定入口
-    entry: './src/main.js',
+    entry: '@/main.js',
     //指定出口
     output: {
         path: config.build.assetsRoot,
-        filename: '[name].js'
+        filename: 'js/[name].js', //这里的name告诉我们的是进去得是什么名字出来的就是什么名字
     },
 
     resolve: {
-        extensions: [ ' ' , '.js', '.vue', '.json'],  //导入的时候不用写拓展名
+        extensions: [' ', '.js', '.vue', '.json'], //导入的时候不用写拓展名
         alias: {
             'vue$': 'vue/dist/vue.esm.js',
-            '@': resolve('src')   //全局配置省略写方法
+            '@': resolve('src') //全局配置省略写方法
         }
     },
 
@@ -35,26 +36,78 @@ module.exports = {
                 },
                 exclude: '/node_modules/'
             },
-            // {
-            //     test: /\.vue$/,
-            //     loader: 'vue-loader',
-            //     options: vueLoaderConfig
-            // },
-
             {
                 test: /\.vue$/,
-                loader: 'vue-loader'
+                loader: 'vue-loader',
+                options: {
+                    extractCSS: true,
+                    loaders: {
+                        css: [
+                            'vue-style-loader',
+                            MiniCssExtractPlugin.loader,
+                            'css-loader'
+                        ],
+                        less: [
+                            'vue-style-loader',
+                            MiniCssExtractPlugin.loader,
+                            'css-loader',
+                            'less-loader'
+                        ],
+                        scss: [
+                            'vue-style-loader',
+                            MiniCssExtractPlugin.loader,
+                            'css-loader',
+                            'fast-sass-loader'
+                        ],
+                        sass: [
+                            'vue-style-loader',
+                            MiniCssExtractPlugin.loader,
+                            'css-loader',
+                            'fast-sass-loader'
+                        ],
+                        styl: [
+                            'vue-style-loader',
+                            MiniCssExtractPlugin.loader,
+                            'css-loader',
+                            'stylus-loader'
+                        ]
+                    },
+                    postLoaders: {
+                        html: 'babel-loader'
+                    }
+                }
             },
             {
                 test: /\.css$/,
                 use: [
-                    // MiniCssExtractPlugin.loader,
-                    "css-loader"
+                    devMode ? 'style-loader' : MiniCssExtractPlugin.loader,
+                    'css-loader',
                 ]
             },
             {
                 test: /\.scss$/,
-                use: ['style-loader', 'css-loader', 'sass-loader']
+                use: [
+                    devMode ? 'style-loader' : MiniCssExtractPlugin.loader,
+                    'css-loader',
+                    'fast-sass-loader',
+                ]
+            },
+            {
+                test: /\.less$/,
+                use: [
+                    devMode ? 'style-loader' : MiniCssExtractPlugin.loader,
+                    'css-loader',
+                    'less-loader'
+                ]
+            },
+            {
+                test: /\.styl$/,
+                use: [
+                    devMode ? 'style-loader' : MiniCssExtractPlugin.loader,
+                    'css-loader',
+                    'postcss-loader',
+                    'stylus-loader'
+                ]
             },
             {
                 test: /\.(png|jpg|gif)$/,
@@ -78,21 +131,29 @@ module.exports = {
 
     plugins: [
         // make sure to include the plugin!
-        new VueLoaderPlugin()
+        // vue-loader在15之后需要在plugins中引入
+        new VueLoaderPlugin(),
+        new MiniCssExtractPlugin({
+            // Options similar to the same options in webpackOptions.output
+            // both options are optional
+            filename: devMode ? '[name].css' : 'css/[name].[hash].css',
+            chunkFilename: devMode ? '[id].css' : 'css/[id].[hash].css'
+        })
     ],
-    //webpack 打公共包 extensions
-    optimization: {
-        runtimeChunk: {
-            name: "manifest"
-        },
-        splitChunks: {
-            cacheGroups: {
-                commons: {
-                    test: /[\\/]node_modules[\\/]/,
-                    name: "vendor",
-                    chunks: "all"
-                }
-            }
-        }
-    },
+
+    // webpack 打公共包 extensions
+    // optimization: {
+    //     runtimeChunk: {
+    //         name: "manifest"
+    //     },
+    //     splitChunks: {
+    //         cacheGroups: {
+    //             commons: {
+    //                 test: /[\\/]node_modules[\\/]/,
+    //                 name: "vendor",
+    //                 chunks: "all"
+    //             }
+    //         }
+    //     }
+    // },
 }
