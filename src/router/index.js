@@ -4,6 +4,8 @@ import Home from '@/page/home.vue'
 
 Vue.use(Router);
 
+// const Home = r => require.ensure([], () => r(require('@/page/home')), 'home');
+
 const routes = [
     {
         path: '/',
