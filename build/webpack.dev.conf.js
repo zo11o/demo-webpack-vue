@@ -34,5 +34,16 @@ module.exports = merge(baseWebpackConfig, {
             filename: devMode ? "[name].css" : "css/[name].[hash].css",
             chunkFilename: devMode ? "[id].css" : "css/[id].[hash].css"
         })
-    ]
+    ],
+    //配置webpack开发服务功能
+  devServer: {
+    //设置基本目录结构
+    contentBase: path.resolve(__dirname, '../dist'),
+    //服务器得IP地址，可以使用IP也可以使用localhost
+    host: config.dev.siteConfig.host,
+    //服务器端压缩是否开启
+    compress: true,
+    //配置服务端口号
+    port: config.dev.siteConfig.port
+  }
 });

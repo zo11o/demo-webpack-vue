@@ -18,6 +18,7 @@ module.exports = {
     output: {
         path: config.build.assetsRoot,
         filename: 'js/[name].js', //这里的name告诉我们的是进去得是什么名字出来的就是什么名字
+        // chunkFilename: '[name].chunk.js'
     },
 
     resolve: {
@@ -133,27 +134,27 @@ module.exports = {
         // make sure to include the plugin!
         // vue-loader在15之后需要在plugins中引入
         new VueLoaderPlugin(),
-        // new MiniCssExtractPlugin({
-        //     // Options similar to the same options in webpackOptions.output
-        //     // both options are optional
-        //     filename: devMode ? '[name].css' : 'css/[name].[hash].css',
-        //     chunkFilename: devMode ? '[id].css' : 'css/[id].[hash].css'
-        // })
+        new MiniCssExtractPlugin({
+            // Options similar to the same options in webpackOptions.output
+            // both options are optional
+            filename: devMode ? '[name].css' : 'css/[name].[hash].css',
+            chunkFilename: devMode ? '[id].css' : 'css/[id].[hash].css'
+        })
     ],
 
     // webpack 打公共包 extensions
-    optimization: {
-        runtimeChunk: {
-            name: "manifest"
-        },
-        splitChunks: {
-            cacheGroups: {
-                commons: {
-                    test: /[\\/]node_modules[\\/]/,
-                    name: "vendor",
-                    chunks: "all"
-                }
-            }
-        }
-    },
+    // optimization: {
+    //     runtimeChunk: {
+    //         name: "manifest"
+    //     },
+    //     splitChunks: {
+    //         cacheGroups: {
+    //             commons: {
+    //                 test: /[\\/]node_modules[\\/]/,
+    //                 name: "vendor",
+    //                 chunks: "all"
+    //             }
+    //         }
+    //     }
+    // },
 }
