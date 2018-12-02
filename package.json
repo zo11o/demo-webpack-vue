@@ -4,7 +4,7 @@
   "description": "0 to 1 build a webpack vue project",
   "main": "./src/main.js",
   "scripts": {
-    "dev": "webpack --mode development  --open --inline --hot  --config=build/webpack.base.conf.js",
+    "dev": "webpack --mode development  --open --inline --hot  --config=build/webpack.dev.conf.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -44,6 +44,7 @@
     "fast-sass-loader": "^1.4.6",
     "file-loader": "^2.0.0",
     "happypack": "^5.0.0",
+    "html-webpack-plugin": "^3.2.0",
     "is-accessor-descriptor": "^2.0.0",
     "is-data-descriptor": "^1.0.0",
     "less": "^3.8.1",

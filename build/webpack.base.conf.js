@@ -133,27 +133,27 @@ module.exports = {
         // make sure to include the plugin!
         // vue-loader在15之后需要在plugins中引入
         new VueLoaderPlugin(),
-        new MiniCssExtractPlugin({
-            // Options similar to the same options in webpackOptions.output
-            // both options are optional
-            filename: devMode ? '[name].css' : 'css/[name].[hash].css',
-            chunkFilename: devMode ? '[id].css' : 'css/[id].[hash].css'
-        })
+        // new MiniCssExtractPlugin({
+        //     // Options similar to the same options in webpackOptions.output
+        //     // both options are optional
+        //     filename: devMode ? '[name].css' : 'css/[name].[hash].css',
+        //     chunkFilename: devMode ? '[id].css' : 'css/[id].[hash].css'
+        // })
     ],
 
     // webpack 打公共包 extensions
-    // optimization: {
-    //     runtimeChunk: {
-    //         name: "manifest"
-    //     },
-    //     splitChunks: {
-    //         cacheGroups: {
-    //             commons: {
-    //                 test: /[\\/]node_modules[\\/]/,
-    //                 name: "vendor",
-    //                 chunks: "all"
-    //             }
-    //         }
-    //     }
-    // },
+    optimization: {
+        runtimeChunk: {
+            name: "manifest"
+        },
+        splitChunks: {
+            cacheGroups: {
+                commons: {
+                    test: /[\\/]node_modules[\\/]/,
+                    name: "vendor",
+                    chunks: "all"
+                }
+            }
+        }
+    },
 }
